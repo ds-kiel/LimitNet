@@ -9,7 +9,7 @@ IoT devices often struggle with advanced vision models due to limited hardware a
 
 LimitNet can extract important parts of the input image and prioritize these parts in its progressive bitstream. This allows the cloud to reconstruct images and run inference at any point in time. To evaluate this, we compressed a video frame-by-frame with LimitNet and visualized its output at different points in time:
 
-https://github.com/ds-kiel/LimitNet/assets/64225034/fc739e21-da8c-49d6-b053-7f4ee9530fa5
+https://github.com/ds-kiel/LimitNet/assets/64225034/1b9bf93e-2c2a-4aca-a0d8-0902a086b496
 
 ## Installation
 
@@ -24,7 +24,7 @@ pip install -r requirements.txt
 
 
 ## Saliency dataset
-LimitNet uses BASNet as the teacher for training the saliency detector branch. We used this model to extract the salicny maps on a subset of the ImageNet dataset which you can download it from here:
+LimitNet uses BASNet as the teacher for training the saliency detector branch. We used this model to extract the saliency maps on a subset of the ImageNet dataset which you can download it from here:
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12206178.svg)](https://doi.org/10.5281/zenodo.12206178)
 
@@ -62,13 +62,13 @@ You can find the pretrained weights for ImageNet-1000 and CIFAR-100 here:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12516726.svg)](https://doi.org/10.5281/zenodo.12516726)
 
 ## Compress an image
-To evaluate the LimitNet model on an input image and generate a saliency map, use the following command. ``` --percentage ``` determines the percentage of latent variables that the cloud has been recived.
+To evaluate the LimitNet model on an input image and generate a saliency map, use the following command. ``` --percentage ``` determines the percentage of latent variables that the cloud has been received.
 ```
 python demo.py --model_path <MODEL_PATH> --image_path <IMAGE_PATH> --percentage <PERCENTAGE>
 ```
 
 ## Compress a video
-To evaluate the LimitNet model on a video, use the following command. ``` --percentage ``` determines the percentage of latent variables that the cloud has been recived. 
+To evaluate the LimitNet model on a video, use the following command. ``` --percentage ``` determines the percentage of latent variables that the cloud has been received. 
 
 ```
 python process_video_frames.py --model <MODEL> --model_path <MODEL_PATH> --input_video <INPUT_VIDEO> --output_folder <OUTPUT_FOLDER> --output_video <OUTPUT_VIDEO> --percentage <PERCENTAGE> --frame_rate 30
@@ -78,7 +78,7 @@ python process_video_frames.py --model <MODEL> --model_path <MODEL_PATH> --input
 
 | CIFAR-100 | ImageNet Results |
 |-----------|------------------|
-| ![CIFAR-100 Results](image_size_vs_accuracy_imagenet1k.png) | ![ImageNet Results](image_size_vs_accuracy_cifar-100.png) |
+| ![CIFAR-100 Results](image_size_vs_accuracy_cifar-100.png) | ![ImageNet Results](image_size_vs_accuracy_imagenet1k.png) |
 
 ## License
 
