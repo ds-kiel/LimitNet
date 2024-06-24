@@ -19,7 +19,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import seaborn as sns
 import pandas as pd
-import pytorch_lightning as pl
+import lightning as L
 from copy import copy
 import torchvision
 import random
@@ -36,15 +36,14 @@ from torchmetrics import Accuracy
 from torch.utils.data import Dataset
 import os
 import pickle
-from pytorch_lightning.loggers import TensorBoardLogger
-from pytorch_lightning.loggers import WandbLogger
-from pytorch_lightning.callbacks import LearningRateMonitor
+from lightning.pytorch.loggers import WandbLogger
+from lightning.pytorch.callbacks import LearningRateMonitor
 import wandb
 import torchvision.models as models
 
 device = 'cuda'
 
-class CIFAR100Classifier(pl.LightningModule):
+class CIFAR100Classifier(L.LightningModule):
     def __init__(self, learning_rate):
         super().__init__()
         self.learning_rate = learning_rate
@@ -93,7 +92,7 @@ class CIFAR100Classifier(pl.LightningModule):
 
 #Define the Convolutional Autoencoder
 
-class Encoder(pl.LightningModule):
+class Encoder(L.LightningModule):
     def __init__(self):
         super(Encoder, self).__init__()
         
@@ -113,7 +112,7 @@ class Encoder(pl.LightningModule):
  # Define the Convolutional Autoencoder
 
 
-class Decoder(pl.LightningModule):
+class Decoder(L.LightningModule):
     def __init__(self):
         super(Decoder, self).__init__()
         
@@ -140,7 +139,7 @@ class Decoder(pl.LightningModule):
     
 # Define the Convolutional Autoencoder
 
-class SalDecoder(pl.LightningModule):
+class SalDecoder(L.LightningModule):
     def __init__(self):
         super(SalDecoder, self).__init__()
        
@@ -170,18 +169,20 @@ def random_noise(self, x, r1, r2):
 
 #Define the Convolutional Autoencoder
 
-class LimitNet(pl.LightningModule):
-    def __init__(self):
+class LimitNet(L.LightningModule):
+    def __init__(self, model):
         super(LimitNet, self).__init__()
         #
         self.encoder = Encoder()
         self.decoder = Decoder()
         self.sal_decoder = SalDecoder()
         ###
-        
-        self.accuracy = Accuracy(task="multiclass", num_classes=100)
-        self.cls_model = CIFAR100Classifier(learning_rate=0.001)
-        # self.cls_model = torch.load('./EfficentNet')
+        if model == 'cifar':
+            self.accuracy = Accuracy(task="multiclass", num_classes=100)
+            self.cls_model = CIFAR100Classifier(learning_rate=0.001)
+        if model == 'imagenet':
+            self.accuracy = Accuracy(task="multiclass", num_classes=1000)
+            self.cls_model = EfficientNet.from_pretrained('efficientnet-b0')
 
         self.transforms = transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 

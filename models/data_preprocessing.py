@@ -4,14 +4,14 @@
 # LICENSE file in the root directory of this source tree.
 
 from efficientnet_pytorch import EfficientNet
-import pytorch_lightning as pl
+import lightning as L
 import torch
 from torchvision import datasets, transforms
 from torch.utils.data import Dataset
 import os
 import cv2
 
-class CIFAR100DataModule(pl.LightningDataModule):
+class CIFAR100DataModule(L.LightningDataModule):
     def __init__(self, batch_size=32):
         super().__init__()
         self.batch_size = batch_size

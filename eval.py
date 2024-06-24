@@ -24,19 +24,18 @@ from models.model import LimitNet
 from tqdm import tqdm
 from dahuffman import HuffmanCodec
 import matplotlib.pyplot as plt  # Import matplotlib
+from torchvision import datasets, transforms
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Model quantization and evaluation script")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, help="Dataset to train evaludate")
     parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
-    parser.add_argument('--test_batch_size', type=int, default=32, help='Batch size for testing')
-    parser.add_argument('--test_data_size', type=int, default=5000, help='Desired data size for testing')
     parser.add_argument('--model_path', type=str, default=None, help='Path to the model')
     parser.add_argument("--imagenet_root", type=str, default="/data22/datasets/ilsvrc2012/", help="ImageNet dataset root directory")
     return parser.parse_args()
 
 
-def get_test_loader(args, est_data_size, resize, test_batch_size):
+def get_test_loader(args, resize, batch_size):
     transform_test = transforms.Compose([
         transforms.Resize((resize, resize), antialias=True),
         transforms.ToTensor(),
@@ -45,11 +44,11 @@ def get_test_loader(args, est_data_size, resize, test_batch_size):
 
     if args.model == 'cifar':
         CIFAR_testset = torchvision.datasets.CIFAR100(root='./data', train=False, transform=transform_test)
-        return DataLoader(CIFAR_testset, batch_size=test_batch_size, num_workers=2)
+        return DataLoader(CIFAR_testset, batch_size=batch_size, num_workers=2)
 
     if args.model =='imagenet':
-        ImageNet_val = datasets.ImageFolder(root=f'{args.imagenet_root}/val/', transform=transform_test)
-        return torch.utils.data.DataLoader(IMGNET_test_set, batch_size=test_batch_size, num_workers=1)
+        IMAGENET_testset = datasets.ImageFolder(root=f'{args.imagenet_root}/val/', transform=transform_test)
+        return torch.utils.data.DataLoader(IMAGENET_testset, batch_size=batch_size, num_workers=1)
 
 def sal_quantization_and_dequantization(data):
     min_ = torch.min(data)
@@ -105,7 +104,7 @@ def quantization_and_huffman(data, filter_number, codec_setting):
     encoded = codec.encode(quantized_data)
     return len(encoded) / 1024
 
-def calculate_model_loss(model, k, test_loader, codec_setting):
+def calculate_acc(model, k, test_loader, codec_setting):
     model.eval().to('cuda')
     size_list, acc_list = [], []
     for data in test_loader:
@@ -183,18 +182,17 @@ def main():
     random.seed(10)
     np.random.seed(0)
     
-    model = LimitNet().to('cuda')
-    model.load_state_dict(torch.load(args.model_path))
-    
-    test_loader = get_test_loader(args, args.test_data_size, 224, args.test_batch_size)
+    model = LimitNet(args.model)
+    model = torch.load(args.model_path).to('cuda')
+    test_loader = get_test_loader(args, 224, args.batch_size)
     
     codec_setting = create_codec(test_loader, model)
 
     top1 = []
     sizes = []
-    for threshold in range(1, 101, 7):
-        model.p = threshold / 100
-        images_size, total_acc = calculate_model_loss(model,
+    for threshold in range(2, 10):
+        model.p = threshold/10
+        images_size, total_acc = calculate_acc(model,
                                                       k=1,
                                                       test_loader=test_loader,
                                                       codec_setting=codec_setting
@@ -206,7 +204,7 @@ def main():
 
     # Plotting Image Size vs Accuracy
     dataset_type = 'ImageNet1K' if args.model == 'imagenet' else 'CIFAR-100'
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(6, 4))
 
     # Plot with enhanced aesthetics
     plt.plot(sizes, [100 * acc for acc in top1], marker='o', linestyle='-', color='b', markersize=8, linewidth=2, label=f'{dataset_type}')
