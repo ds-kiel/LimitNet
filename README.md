@@ -9,7 +9,7 @@ IoT devices often struggle with advanced vision models due to limited hardware a
 
 LimitNet can extract important parts of the input image and prioritize these parts in its progressive bitstream. This allows the cloud to reconstruct images and run inference at any point in time. To evaluate this, we compressed a video frame-by-frame with LimitNet and visualized its output at different points in time:
 
-https://github.com/facebookresearch/dinov2/assets/60359573/f168823e-7922-415a-b429-578badf5c356
+https://github.com/ds-kiel/LimitNet/blob/main/video.mp4
 
 ## Installation
 
