@@ -1,7 +1,7 @@
 # LimitNet
 Welcome to the LimitNet GitHub repository! This is the repository for our paper: **[LimitNet: Progressive, Content-Aware Image Offloading for Extremely Weak Devices & Networks (MobiSys2024)](https://doi.org/10.1145/3643832.3661856)**.
 
-## Summery
+## Summary
 
 IoT devices often struggle with advanced vision models due to limited hardware and remote deployments. Offloading tasks to the cloud is hindered by LPWANs' limited bandwidth and high packet loss, making time-sensitive inference difficult. Existing methods produce non-progressive bit streams, reducing decoding quality under these constraints. We introduce LimitNet, a progressive, content-aware image compression model for weak devices and networks. LimitNet's encoder prioritizes critical data during transmission, allowing the cloud to perform inference even with partial data. Experiments show LimitNet achieves up to 14.01 p.p. higher accuracy on ImageNet1000, 18.01 p.p. on CIFAR100, and 0.1 higher mAP@0.5 on COCO compared to SOTA. It also reduces bandwidth usage by up to 83.68% on CIFAR100, while only increasing encoding time by 4% compared to JPEG on STM32F7.
 
@@ -16,7 +16,7 @@ https://github.com/ds-kiel/LimitNet/assets/64225034/1b9bf93e-2c2a-4aca-a0d8-0902
 To get started, clone the repository and install the required dependencies:
 
 ```
-git clone https://github.com/yourusername/LimitNet.git
+git clone https://github.com/ds-kiel/LimitNet.git
 cd LimitNet
 pip install -r requirements.txt
 ```
@@ -80,7 +80,7 @@ python process_video_frames.py --model <MODEL> --model_path <MODEL_PATH> --input
 |-----------|------------------|
 | ![CIFAR-100 Results](image_size_vs_accuracy_cifar-100.png) | ![ImageNet Results](image_size_vs_accuracy_imagenet1k.png) |
 
-## License
+## Citation
 
 ```
 @inproceedings{10.1145/3643832.3661856,
