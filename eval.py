@@ -190,7 +190,7 @@ def main():
 
     top1 = []
     sizes = []
-    for threshold in range(2, 10):
+    for threshold in range(1, 10):
         model.p = threshold/10
         images_size, total_acc = calculate_acc(model,
                                                       k=1,

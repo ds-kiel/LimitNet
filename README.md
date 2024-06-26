@@ -35,12 +35,12 @@ LimitNet uses BASNet as the teacher for training the saliency detector branch. W
 To train the LimitNet on the CIFAR100 dataset, run the following command:
 
 ```
-python train.py --model cifar --batch_size 32 --imagenet_root <IMAGENET_ROOT> --checkpoint_dir checkpoint --wandb_name LimitNet --wandb_project LimitNet --cifar_classifier_model_path ./EfficentNet-CIFAR100
+python train.py --model cifar --batch_size 32 --imagenet_root <IMAGENET_ROOT> --checkpoint_dir checkpoint --wandb_name LimitNet --wandb_project LimitNet --cifar_classifier_model_path ./EfficientNet-CIFAR100
 ```
 To train the LimitNet model on the ImageNet dataset, run the following command:
 
 ```
-python train.py --model imagenet --batch_size 32 --imagenet_root <IMAGENET_ROOT> --checkpoint_dir checkpoint --wandb_name LimitNet --wandb_project LimitNet --cifar_classifier_model_path ./EfficentNet-ImageNet
+python train.py --model imagenet --batch_size 32 --imagenet_root <IMAGENET_ROOT> --checkpoint_dir checkpoint --wandb_name LimitNet --wandb_project LimitNet --cifar_classifier_model_path ./EfficientNet-ImageNet
 ```
 
 ## Evaluation
