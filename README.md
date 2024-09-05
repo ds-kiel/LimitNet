@@ -1,5 +1,5 @@
 # LimitNet
-Welcome to the LimitNet GitHub repository! This is the repository for our paper: **[LimitNet: Progressive, Content-Aware Image Offloading for Extremely Weak Devices & Networks (MobiSys2024)]([https://doi.org/10.1145/3643832.3661856](https://www.ds.informatik.uni-kiel.de/en/publications/papers/2024-06-hojjat-mobisys-limitnet.pdf))**.
+Welcome to the LimitNet GitHub repository! This is the repository for our paper: **[LimitNet: Progressive, Content-Aware Image Offloading for Extremely Weak Devices & Networks (MobiSys2024)](https://doi.org/10.1145/3643832.3661856)**.
 
 ## Summary
 
