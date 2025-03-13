@@ -57,10 +57,10 @@ python eval.py --model cifar --model_path './LimitNet-ImageNet'  --batch_size 32
 
 
 ## Pre-trained model
-You can find the pretrained weights for ImageNet-1000 and CIFAR-100 here:
+You can find the pretrained weights for ImageNet-1000, CIFAR-100 and EfficientNet tuned on CIFAR-100 here:
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12516726.svg)](https://doi.org/10.5281/zenodo.12516726)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12516726.svg)]([https://doi.org/10.5281/zenodo.12516726](https://zenodo.org/records/15019456))
 ## Compress an image
 To evaluate the LimitNet model on an input image and generate a saliency map, use the following command. ``` --percentage ``` determines the percentage of latent variables that the cloud has been received.
 ```
