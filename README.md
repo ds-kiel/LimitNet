@@ -53,10 +53,6 @@ To evaluate the LimitNet on the CIFAR100 dataset, run the following command:
 python eval.py --model cifar --model_path './LimitNet-CIFAR100' --batch_size 32 --imagenet_root <IMAGENET_ROOT> 
 ```
 
-```
-python eval.py --model cifar --model_path './LimitNet-ImageNet'  --batch_size 32
-```
-
 
 ## Pre-trained model
 You can find the pretrained weights for ImageNet-1000, CIFAR-100 and EfficientNet tuned on CIFAR-100 here:
