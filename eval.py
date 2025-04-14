@@ -31,7 +31,7 @@ def parse_args():
     parser.add_argument("--model", type=str, help="Dataset to train evaludate")
     parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
     parser.add_argument('--model_path', type=str, default=None, help='Path to the model')
-    parser.add_argument("--imagenet_root", type=str, default="/data22/datasets/ilsvrc2012/", help="ImageNet dataset root directory")
+    parser.add_argument("--data_root", type=str, help="dataset root directory")
     return parser.parse_args()
 
 
@@ -47,7 +47,7 @@ def get_test_loader(args, resize, batch_size):
         return DataLoader(CIFAR_testset, batch_size=batch_size, num_workers=2)
 
     if args.model =='imagenet':
-        IMAGENET_testset = datasets.ImageFolder(root=f'{args.imagenet_root}/val/', transform=transform_test)
+        IMAGENET_testset = datasets.ImageFolder(root=f'{args.data_root}/val/', transform=transform_test)
         return torch.utils.data.DataLoader(IMAGENET_testset, batch_size=batch_size, num_workers=1)
 
 def sal_quantization_and_dequantization(data):
